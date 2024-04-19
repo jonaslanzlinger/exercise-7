@@ -22,6 +22,7 @@ class Environment:
         # for edge in self.graph.edges():
         #     print(edge, self.graph[edge[0]][edge[1]]["pheromone_level"])
 
+
     # Intialize the pheromone trails in the environment by this procedure
     # 1. Pick random start vertex
     # 2. Find the nearest neighbor tour length
@@ -63,13 +64,22 @@ class Environment:
         print("Nearest neighbor tour length: ", tour_length)
 
     # Update the pheromone trails in the environment
-    def update_pheromone_map(self):
-        pass
+    # 1. Evaporate the pheromone trails in the environment
+    # 2. Deposit pheromone trails in the environment
+    def update_pheromone_map(self, ants: list):
+        # 1. Evaporate the pheromone trails in the environment
+        for edge in self.graph.edges():
+            self.graph[edge[0]][edge[1]]["pheromone_level"] *= 1 - self.rho
+
+        # 2. Deposit pheromone trails in the environment
+        for ant in ants:
+            for edge in ant.get_tour():
+                self.graph[edge[0]][edge[1]]["pheromone_level"] += 1 / ant.get_tour_length()
 
     # Get the pheromone trails in the environment
     def get_pheromone_map(self):
-        pass
+        return self.graph.edges()
 
     # Get the environment topology
-    def get_possible_locations(self):
-        pass
+    def get_possible_locations(self, current_location: int):
+        return self.graph[current_location]

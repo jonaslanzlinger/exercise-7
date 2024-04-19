@@ -51,7 +51,13 @@ class AntColony:
 
 def main():
     # Intialize the ant colony
-    ant_colony = AntColony(1, None, None, None, None)
+    # Recommended values:
+    # ant_population = number of vertices
+    # iterations = number of vertices
+    # alpha = 1
+    # beta = 2 to 5
+    # rho = 0.5
+    ant_colony = AntColony(48, 48, 1, 2, 0.5)
 
     # Solve the ant colony optimization problem
     solution, distance = ant_colony.solve()
