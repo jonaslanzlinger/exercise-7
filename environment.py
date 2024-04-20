@@ -83,3 +83,7 @@ class Environment:
     # Get the environment topology
     def get_possible_locations(self, current_location: int):
         return self.graph[current_location]
+    
+    # Get the pseudo-euclidean distance between two vertices
+    def get_distance(self, vertex1: int, vertex2: int):
+        return self.graph[vertex1][vertex2]["weight"]

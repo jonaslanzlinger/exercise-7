@@ -28,8 +28,8 @@ class AntColony:
         # Initialize the ants of the ant colony
         for i in range(ant_population):
             
-            # Initialize an ant on a random initial location 
-            ant = Ant(self.alpha, self.beta, None)
+            # Initialize an ant in the environment on the vertex i % num_of_vertices 
+            ant = Ant(self.alpha, self.beta, i % self.environment.graph.number_of_nodes())
 
             # Position the ant in the environment of the ant colony so that it can move around
             ant.join(self.environment)

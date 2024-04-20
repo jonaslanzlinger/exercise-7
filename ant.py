@@ -22,3 +22,7 @@ class Ant():
     # Position an ant in an environment
     def join(self, environment):
         self.environment = environment
+
+    # Get the pseudo-euclidean distance between current location and the destination vertex
+    def get_distance(self, destination_vertex: int):
+        return self.environment.get_distance(self.current_location, destination_vertex)
