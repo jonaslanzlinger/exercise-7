@@ -26,7 +26,7 @@ class AntColony:
         self.ants = []
 
         # Initialize the ants of the ant colony
-        for i in range(ant_population):
+        for i in range(1, ant_population - 1):
             
             # Initialize an ant in the environment on the vertex i % num_of_vertices 
             ant = Ant(self.alpha, self.beta, i % self.environment.graph.number_of_nodes())
@@ -58,6 +58,7 @@ def main():
     # beta = 2 to 5
     # rho = 0.5
     ant_colony = AntColony(48, 48, 1, 2, 0.5)
+    ant_colony.ants[0].select_path()
 
     # Solve the ant colony optimization problem
     solution, distance = ant_colony.solve()
