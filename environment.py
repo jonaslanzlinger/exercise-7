@@ -65,6 +65,7 @@ class Environment:
         # 3. Initial pheormone level: m / nnDistance, where m = #ants
         for edge in self.graph.edges():
             self.graph[edge[0]][edge[1]]["pheromone_level"] = 48 / nnDistance
+            self.graph[edge[1]][edge[0]]["pheromone_level"] = 48 / nnDistance
 
     # Update the pheromone trails in the environment
     # 1. Evaporate the pheromone trails in the environment
@@ -74,6 +75,7 @@ class Environment:
         # 1. Evaporate the pheromone trails in the environment
         for edge in self.graph.edges():
             self.graph[edge[0]][edge[1]]["pheromone_level"] *= 1 - self.rho
+            self.graph[edge[1]][edge[0]]["pheromone_level"] *= 1 - self.rho
 
         # 2. Deposit pheromone trails in the environment
         for ant in ants:
@@ -81,11 +83,9 @@ class Environment:
                 self.graph[ant.tour[i]][edge_end]["pheromone_level"] += (
                     1 / ant.travelled_distance
                 )
-
-    # Get the pheromone trails in the environment
-    # do we need that?
-    def get_pheromone_map(self):
-        return self.graph.edges()
+                self.graph[edge_end][ant.tour[i]]["pheromone_level"] += (
+                    1 / ant.travelled_distance
+                )
 
     # Get reachable vertices from the current location
     def get_reachable_locations(self, current_location: int):

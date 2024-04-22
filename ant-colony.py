@@ -65,6 +65,8 @@ class AntColony:
             for ant in self.ants:
                 ant.run()
                 # 2. After each iteration, update the list of solutions and the shortest distance (for each ant)
+                # FOR MOPRE VERBOSE OUTPUT
+                # print("Ant: distance: ", ant.travelled_distance)
                 if ant.travelled_distance < shortest_distance:
                     shortest_distance = ant.travelled_distance
                     solution = ant.tour
@@ -76,16 +78,8 @@ class AntColony:
             for ant in self.ants:
                 ant.reset()
 
-            # print(
-            #     "Iteration: ",
-            #     _ + 1,
-            #     "/",
-            #     self.iterations,
-            #     " shortest_distance: ",
-            #     shortest_distance,
-            #     " solution: ",
-            #     solution,
-            # )
+            # FOR MORE VERBOSE OUTPUT
+            # print("Iteration: ", _, " shortest distance: ", shortest_distance)
 
         return solution, shortest_distance
 
@@ -94,32 +88,39 @@ def main():
     # Intialize the ant colony
     # Recommended values:
     # ant_population = number of vertices
-    # iterations = how many times an ant will run through the environment (I try values [1, 5, 20, 100])
-    # alpha = 1 (I try values [0.9, 1.0, 1.1])
-    # beta = 2 to 5 (I try values between 2.0 to 5.0 in steps of 0.5)
-    # rho = 0.5 (I try values [0.4, 0.5, 0.6])
+    # iterations = how many times an ant will run through the environment
+    # alpha = 1.0
+    # beta = 2 to 5
+    # rho = 0.5
     # Determine the best alpha, beta, and rho values empirically
+
+    # Here, I am testing the best alpha, beta, and rho values empirically
+    # The best configuration will be selected based on the shortest distance
     best_solution = []
     best_solution_distance = np.Inf
-    for iterations in [200]:
-        for alpha in [0.5, 0.8, 1.2, 1.5]:
-            for beta in [2, 2.5, 3, 3.5, 4, 4.5, 5]:
-                for rho in [0.5, 0.6]:
-                    print("Testing values: ", alpha, beta, rho)
+    attempts = 10
+    iterations = 25
+    for alpha in [0.75, 1.00, 1.25]:
+        for beta in [2, 2.5, 3, 3.5, 4, 4.5, 5]:
+            for rho in [0.4, 0.5, 0.6]:
+                print(f"Testing configuration: {alpha}, {beta}, {rho}")
+                total_attempts_distance = 0
+                for _ in range(attempts):
                     ant_colony = AntColony(48, iterations, alpha, beta, rho)
                     solution, distance = ant_colony.solve()
                     if distance < best_solution_distance:
                         best_solution_distance = distance
                         best_solution = solution
-                        print(
-                            "New best solution: ",
-                            best_solution,
-                            " shortest distance: ",
-                            best_solution_distance,
-                        )
+                        best_alpha = alpha
+                        best_beta = beta
+                        best_rho = rho
+                    total_attempts_distance += distance
+                print(
+                    f"Configuration: {alpha}, {beta}, {rho} - Average distance: {total_attempts_distance / attempts}"
+                )
 
     print(
-        "Best solution: ", best_solution, " shortest distance: ", best_solution_distance
+        f"Best solution: {best_alpha}, {best_beta}, {best_rho} - {best_solution} - Shortest distance: {best_solution_distance}"
     )
 
 
