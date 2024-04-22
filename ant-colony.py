@@ -65,7 +65,7 @@ class AntColony:
             for ant in self.ants:
                 ant.run()
                 # 2. After each iteration, update the list of solutions and the shortest distance (for each ant)
-                # FOR MOPRE VERBOSE OUTPUT
+                # FOR MORE VERBOSE OUTPUT
                 # print("Ant: distance: ", ant.travelled_distance)
                 if ant.travelled_distance < shortest_distance:
                     shortest_distance = ant.travelled_distance
