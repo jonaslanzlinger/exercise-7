@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 from environment import Environment
 from ant import Ant
@@ -96,9 +97,10 @@ def main():
 
     # Here, I am testing the best alpha, beta, and rho values empirically
     # The best configuration will be selected based on the shortest distance
+    random.seed(47)
     best_solution = []
     best_solution_distance = np.Inf
-    attempts = 10
+    attempts = 100
     iterations = 25
     for alpha in [0.75, 1.00, 1.25]:
         for beta in [2, 2.5, 3, 3.5, 4, 4.5, 5]:
@@ -114,6 +116,7 @@ def main():
                         best_alpha = alpha
                         best_beta = beta
                         best_rho = rho
+                        print("New best solution: ", best_solution_distance)
                     total_attempts_distance += distance
                 print(
                     f"Configuration: {alpha}, {beta}, {rho} - Average distance: {total_attempts_distance / attempts}"
