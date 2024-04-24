@@ -100,8 +100,8 @@ def main():
     random.seed(47)
     best_solution = []
     best_solution_distance = np.Inf
-    attempts = 100
-    iterations = 25
+    attempts = 10
+    iterations = 100
     for alpha in [0.75, 1.00, 1.25]:
         for beta in [2, 2.5, 3, 3.5, 4, 4.5, 5]:
             for rho in [0.4, 0.5, 0.6]:

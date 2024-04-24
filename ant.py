@@ -1,5 +1,6 @@
 import random
 import time
+import numpy as np
 
 # Class representing an artificial ant of the ant colony
 """
@@ -68,9 +69,11 @@ class Ant:
             paths[path]["probability"] = paths[path]["numerator"] / denominator
 
         # 5. Return the next path based on the highest probability
-        next_path = max(paths, key=lambda x: paths[x]["probability"])
+        # store probabilities in 1-D array
+        probabilities = [path["probability"] for path in paths.values()]
 
-        return next_path
+        # choose the next path based on the probabilities
+        return np.random.choice(list(paths.keys()), p=probabilities)
 
     # Position an ant in an environment
     def join(self, environment):
